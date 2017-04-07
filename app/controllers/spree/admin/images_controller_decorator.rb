@@ -1,5 +1,5 @@
 Spree::Admin::ImagesController.class_eval do
-  before_action :load_folder_and_digital_assets, only: [:new, :edit, :create, :update]
+  before_action :load_folder_and_digital_assets, only: [:new, :edit, :create, :update, :index]
 
   private
     def load_folder_and_digital_assets

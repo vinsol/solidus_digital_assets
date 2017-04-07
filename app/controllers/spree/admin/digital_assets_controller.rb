@@ -41,6 +41,10 @@ module Spree
           collection_url(folder_id: @digital_asset.folder_id)
         end
 
+        def location_after_destroy
+          collection_url(folder_id: @digital_asset.folder_id)
+        end
+
     end
 
   end

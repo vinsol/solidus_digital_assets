@@ -1,27 +1,25 @@
-<div class="input-group form-group">
+<div class="input-group form-group" data-asset-upload-button="true">
   <span class="input-group-btn " id= 'asset_upload_buton'>
-<button type="button" class="btn btn-default"  id="upload_asset_button" data-toggle="modal" data-target="#associate_asset_modal">Select Asset</button>
-
+    <button type="button" class="btn btn-default"  id="upload_asset_button" data-toggle="modal" data-target="#associate_asset_modal">Select Asset</button>
   </span>
   <input type="text" id="digital_asset_file_name" disabled='true' class="form-control">
 </div>
-
-<div id="associate_asset_modal" class="modal fade" >
+<div id="associate_asset_modal" class="modal fade" role="dialog">
   <div class="modal-dialog modal-lg">
 
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title"><strong>Asset Uploader</strong></h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
-      <div id = 'upload_asset_modal_body' class="modal-body">
+      <div id='upload_asset_modal_body' class="modal-body">
         <div class="row">
-          <div id = 'folder_list' class="col-md-4">
+          <div id='folder_list' class="col-md-4">
             <div class="tree-menu-container">
               <%= build_nested_set_tree(@folders) do |folder| %>
 
-                <a href="javascript:void(0)" class="toggle_list_menu glyphicon glyphicon-chevron-right"></a>
+                <a href="javascript:void(0)" class="toggle_list_menu fa fa-chevron-right"></a>
                 <%= link_to folder.name, spree.admin_digital_assets_path(folder_id: folder.id, view_more: true), class: 'link', data: { id: folder.id, remote: true } %>
               <% end %>
             </div>
@@ -33,7 +31,25 @@
         </div>
       </div>
     </div>
+    <!-- /Modal Content -->
+
   </div>
 </div>
-
 <%= f.hidden_field :digital_asset_id, id: 'digital_asset_id_field' %>
+<script>
+ $(document).ready(function() {
+     var assetModal = $('#associate_asset_modal');
+     assetModal.on('click', '.asset-area', function() {
+         $('#digital_asset_id_field').val($(this).find('.attachment').attr('data-id'));
+         $('#digital_asset_file_name').val($(this).find('.attachment').attr('data-name'));
+         $(this).siblings().removeClass('active');
+         $(this).addClass('active');
+     });
+
+     assetModal.on('dblclick', '.asset-area', function() {
+         $('#associate_asset_modal').modal('hide');
+     });
+     assetModal.detach();
+     $('body').after(assetModal);
+ });
+</script>

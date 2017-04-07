@@ -1,20 +1,25 @@
-<% content_for :page_title do %>
-  <%= plural_resource_name(Spree::DigitalAsset) %>
+<% admin_layout "full-width" %>
+<% admin_breadcrumb(link_to(plural_resource_name(Spree::DigitalAsset.new), [:admin, Spree::DigitalAsset])) %>
+<% folder_breadcrumb_path(@current_folder) %>
+
+<% content_for :page_actions do %>
+  <%= button Spree.t('folders.new_sub_folder'), nil, 'button', id: 'admin_new_folder', data: { toggle: 'modal', target: '#add-subfolder' } %>
 <% end %>
 
 <div id='folder_index' class='row'>
   <%= render 'content' %>
 </div>
+
 <div class="upload-assets-section hidden">
   <div class="upload-assets-header">
     <div class="row upload-assets-header-row">
       <div class="col-xs-8 upload-assets-header-title header_title"></div>
       <div class="col-xs-4 text-right upload-assets-header-actions">
         <a href="javascript:" class="upload-assets-header-actions-link minimize-link">
-          <i class="glyphicon glyphicon-menu-down menu-down"></i>
-          <i class="glyphicon glyphicon-menu-up menu-up"></i>
+          <i class="fa fa-chevron-down menu-down"></i>
+          <i class="fa fa-chevron-up menu-up"></i>
         </a>
-        <a href="javascript:" class="upload-assets-header-actions-link close-link"><i class="glyphicon glyphicon-remove"></i></a>
+        <a href="javascript:" class="upload-assets-header-actions-link close-link"><i class="fa fa-remove"></i></a>
       </div>
     </div>
   </div>
@@ -35,3 +40,6 @@
     </div>
   </div>
 </div>
+
+<%= render partial: 'spree/admin/shared/new_folder_form', locals: { parent: @current_folder } %>
+<%= render partial: 'spree/admin/shared/modification_content' %>

@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.require_path = 'lib'
   s.requirements << 'none'
 
-  s.add_dependency 'spree_core', '~> 3.2.alpha'
+  s.add_dependency 'solidus_core', '~> 2.2.0.alpha'
   s.add_dependency 'remotipart', '~> 1.2'
   s.add_dependency 'jquery-fileupload-rails', '~> 0.4.6'
 
