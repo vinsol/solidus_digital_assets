@@ -59,6 +59,14 @@ Simply add this require statement to your spec_helper:
 require 'solidus_digital_assets/factories'
 ```
 
+Screenshots
+-----------
+![Root Folder](/Screenshots/1.png?raw=True "Root Folder")
+
+![Asset Folder](/Screenshots/2.png?raw=True "Asset Folder")
+
+![Associate Asset](/Screenshots/3.png?raw=True "Associate Asset")
+
 Credits
 -------
 
