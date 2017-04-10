@@ -11,83 +11,34 @@ var Folder = function (selectors) {
 Folder.prototype.init = function () {
   var _this = this;
 
-  this.treeMenuContainer.on('click', 'ul.dropdown-menu a.add-folder', function() {
-    _this.addFolder($(this));
+  this.body.find('#admin_new_folder').on('click', function() {
+    _this.addFolderSetup($(this));
   });
 
-  this.wrapper.on('click', 'a.add-root-folder', function() {
-    _this.addFolder($(this));
+  this.wrapper.on('click', 'a.rename-folder', function() {
+    _this.renameFolderSetup($(this));
   });
 
   this.wrapper.on('click', '.folder-area .folder-image', function() {
     _this.openFolder($(this));
   });
 
-  this.wrapper.on('click', 'a.rename-folder', function() {
-    _this.renameFolder($(this));
-  });
-
-  this.treeMenuContainer.on('click', 'ul.dropdown-menu a.delete-folder', function(event) {
-    var currentFolderId = _this.wrapper.find('#folder_assets').data('current');
-    if($(this).closest('.btn-group').siblings('.link').data('id') != currentFolderId) {
-      $.ajax(_this.getDeleteRequestParams($(this)));
-      return false;
-    }
-  });
-
   this.wrapper.on('click', '.modal input[type="submit"]', function(event) {
     event.preventDefault();
-    $.ajax(_this.getCreateRequestParams($(this)));
+    $.ajax(_this.getRequestParams($(this)));
   });
 };
 
-Folder.prototype.handleFolderTreeModification = function (data) {
-  this.wrapper.find('.modal').modal('hide').data('bs.modal', null);
-  var $openFolderLink = this.wrapper.find('a.open-folder-link[data-id="' + data['id'] + '"]');
-  if($openFolderLink.length) {
-    $openFolderLink.html(data['name']).attr('data-name', data['name']);
-  } else {
-    this.addNewFolderToSideBar(data);
-    this.addNewFolderToCurrentFolder(data);
-  }
-};
-
-Folder.prototype.deleteFolder = function (data) {
-  this.buttonGroup.filter('.open').removeClass('open').find('button').attr('aria-expanded', 'false');
-  if(data['folder']) {
-    this.wrapper.find('a.open-folder-link[data-id="' + data['folder']['id'] + '"]')
-      .closest('.folder-link-container').remove();
-  } else {
-    show_flash('danger', 'Please make sure folder must be empty before deletion.');
-  }
-};
-
-Folder.prototype.addFolder = function (link) {
-  var dataLink = link.closest('.btn-group').siblings('.link');
-  this.addParentId(dataLink);
+Folder.prototype.addFolderSetup = function (link) {
   this.removeName();
   this.changeFormForCreate();
 };
 
-Folder.prototype.renameFolder = function (link) {
-  var dataLink = link.closest('.btn-group').siblings('.link');
+Folder.prototype.renameFolderSetup = function (link) {
+  var dataLink = link.closest('.folder-area').find('.folder-link');
   this.addName(dataLink);
   this.removeParentId();
   this.changeFormForUpdate(dataLink);
-};
-
-Folder.prototype.addNewFolderToSideBar = function (data) {
-  var $folderElement = this.createFolder(data);
-  var $parent = this.treeMenuContainer.find('a.link[data-id="' + data['parent_id'] + '"]').closest('li');
-  if(!$parent.length) {
-    $parent = $('div.tree-menu-container');
-  }
-  $parent.children('.toggle_list_menu').removeClass('glyphicon-chevron-right').addClass('glyphicon-chevron-down');
-  if($parent.children('ul.tree-menu').length)
-    $parent.children('ul.tree-menu').append($folderElement);
-  else
-    $parent.append($('<ul>').addClass('tree-menu').append($folderElement));
-  $parent.children('ul.tree-menu').css('display', 'block');
 };
 
 Folder.prototype.createFolder = function (data) {
@@ -108,7 +59,7 @@ Folder.prototype.addAttributes = function (element, data) {
     .text(data['name']);
 };
 
-Folder.prototype.getCreateRequestParams = function (link) {
+Folder.prototype.getRequestParams = function (link) {
   var _this = this;
   return {
     'url': this.wrapper.find('.modal #new_folder_form').attr('action'),
@@ -121,7 +72,8 @@ Folder.prototype.getCreateRequestParams = function (link) {
       'folder': this.getFolderAttributes()
     },
     success: function(data) {
-      _this.handleFolderTreeModification(data['folder']);
+      _this.wrapper.find('.modal').modal('hide').data('bs.modal', null);
+      _this.addNewFolderToCurrentFolder(data['folder']);
     }
   };
 };
@@ -135,21 +87,6 @@ Folder.prototype.getFolderAttributes = function () {
     folderAttributes['parent_id'] = parentFolderId;
   }
   return folderAttributes;
-};
-
-Folder.prototype.getDeleteRequestParams = function (link) {
-  var _this = this;
-  return {
-    'url': link.attr('href'),
-    'method': link.data('method'),
-    'dataType': 'JSON',
-    'data': {
-      'folder_id': link.data('id')
-    },
-    success: function(data) {
-      _this.deleteFolder(data);
-    }
-  };
 };
 
 Folder.prototype.addNewFolderToCurrentFolder = function (data) {
@@ -173,15 +110,6 @@ Folder.prototype.createCenterContainerFolderArea = function (data) {
   return $folderArea;
 };
 
-Folder.prototype.addParentId = function (link) {
-  var parentFolderId = link.data('id');
-  this.wrapper.find('.modal').find('.parent_id').val(parentFolderId);
-};
-
-Folder.prototype.removeParentId = function () {
-  this.wrapper.find('.modal').find('.parent_id').val('');
-};
-
 Folder.prototype.removeName = function () {
   this.wrapper.find('.modal').find('#folder_name').val('');
 };
@@ -193,12 +121,14 @@ Folder.prototype.addName = function (link) {
 
 Folder.prototype.changeFormForUpdate = function (link) {
   var folderId = link.data('id');
+  this.wrapper.find('.modal #myModalLabel').text('Update Folder');
   this.wrapper.find('.modal #new_folder_form').attr('action', "/admin/folders/" + folderId);
   this.wrapper.find('.modal #new_folder_form').attr('method', 'put');
   this.wrapper.find('.modal #new_folder_form').find('input[type="submit"]').val('Update Folder');
 };
 
 Folder.prototype.changeFormForCreate = function () {
+  this.wrapper.find('.modal #myModalLabel').text('Add New Folder');
   this.wrapper.find('.modal #new_folder_form').attr('action', "/admin/folders/");
   this.wrapper.find('.modal #new_folder_form').attr('method', 'post');
   this.wrapper.find('.modal #new_folder_form').find('input[type="submit"]').val('Create Folder');

@@ -19,7 +19,8 @@ Spree::Admin::BaseHelper.class_eval do
   end
 
   def digital_assets_next_page_path(digital_assets, current_folder)
-    digital_assets.last_page? ? '' : spree.admin_digital_assets_path(folder_id: current_folder.try(:id), page: (digital_assets.next_page), view_more: true)
+    pages_remaining = digital_assets.last_page? || digital_assets.out_of_range?
+    pages_remaining ? '' : spree.admin_digital_assets_path(folder_id: current_folder.try(:id), page: (digital_assets.next_page), view_more: true)
   end
 
   def folder_breadcrumb_path(item)

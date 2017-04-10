@@ -393,3 +393,11 @@ li.active .link.sidebar-default-font {
 .upload-assets-uploader-status .fail {
   color: #ff0000;
 }
+
+.open-folder-link {
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100px;
+    white-space: nowrap;
+}
