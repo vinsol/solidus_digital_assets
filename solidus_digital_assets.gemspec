@@ -1,8 +1,8 @@
 # encoding: UTF-8
 Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
-  s.name        = 'spree_digital_assets'
-  s.version     = '3.2.0'
+  s.name        = 'solidus_digital_assets'
+  s.version     = '2.2.0.alpha'
   s.summary     = 'Add gem summary here'
   s.description = 'Add (optional) gem description here'
   s.required_ruby_version = '>= 2.0.0'

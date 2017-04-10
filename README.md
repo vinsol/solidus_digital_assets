@@ -1,7 +1,9 @@
-[SpreeDigitalAssets](http://vinsol.com/spreecommerce-digital-asset-management)
+[SolidusDigitalAssets](https://github.com/vinsol/solidus_digital_assets)
 ==================
 
-This gem allows you to have a central repository of the assets. The assets can be uploaded well
+Solidus Port of [SpreeDigitalAssets](https://github.com/vinsol-spree-contrib/spree_digital_assets).
+
+This gem allows you to have a central repository of your store's assets. The assets can be uploaded
 in advance and can be associated with the products/variants at the time of product/variant
 creation.
 
@@ -22,23 +24,22 @@ and can then be used in different products.
 
 * Associate assets while creating product / variant
 
-For more features or usage manual go [here](http://vinsol.com/spreecommerce-digital-asset-management).
 
 Installation
 ------------
 
-Add spree_digital_assets to your Gemfile:
+Add solidus_digital_assets to your Gemfile:
 
 ```ruby
-gem 'spree_digital_assets'
+gem solidus_digital_assets', github: 'vinsol/solidus_digital_assets'
 ```
 
 Bundle your dependencies and run the installation generator:
 
 ```shell
 bundle
-bundle exec rails g spree_digital_assets:install
-bundle exec rails g spree_digital_assets:seed
+bundle exec rails g solidus_digital_assets:install
+bundle exec rails g solidus_digital_assets:seed
 ```
 
 Testing
@@ -55,7 +56,7 @@ When testing your applications integration with this extension you may use it's 
 Simply add this require statement to your spec_helper:
 
 ```ruby
-require 'spree_digital_assets/factories'
+require 'solidus_digital_assets/factories'
 ```
 
 Credits

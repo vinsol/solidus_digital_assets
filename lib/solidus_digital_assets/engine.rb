@@ -1,8 +1,8 @@
-module SpreeDigitalAssets
+module SolidusDigitalAssets
   class Engine < Rails::Engine
-    require 'spree/core'
+    require 'solidus_core'
     isolate_namespace Spree
-    engine_name 'spree_digital_assets'
+    engine_name 'solidus_digital_assets'
 
     # use rspec for tests
     config.generators do |g|
