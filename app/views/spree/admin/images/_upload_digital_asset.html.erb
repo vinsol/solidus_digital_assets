@@ -46,10 +46,17 @@
          $(this).addClass('active');
      });
 
+     $('.tree-menu-container').on('click', '.toggle_list_menu', function() {
+         $(this).toggleClass('glyphicon-chevron-right glyphicon-chevron-down');
+         $(this).siblings('.tree-menu').slideToggle();
+     });
+
+     // Overlay is broken due to the position where modal is inserted detach and attach back again.
      assetModal.on('dblclick', '.asset-area', function() {
          $('#associate_asset_modal').modal('hide');
      });
      assetModal.detach();
      $('body').after(assetModal);
+
  });
 </script>

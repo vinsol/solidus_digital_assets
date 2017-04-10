@@ -37,7 +37,6 @@ Folder.prototype.addFolderSetup = function (link) {
 Folder.prototype.renameFolderSetup = function (link) {
   var dataLink = link.closest('.folder-area').find('.folder-link');
   this.addName(dataLink);
-  this.removeParentId();
   this.changeFormForUpdate(dataLink);
 };
 
@@ -73,7 +72,7 @@ Folder.prototype.getRequestParams = function (link) {
     },
     success: function(data) {
       _this.wrapper.find('.modal').modal('hide').data('bs.modal', null);
-      _this.addNewFolderToCurrentFolder(data['folder']);
+      _this.handleFolderCreateOrUpdate(data['folder']);
     }
   };
 };
@@ -87,6 +86,16 @@ Folder.prototype.getFolderAttributes = function () {
     folderAttributes['parent_id'] = parentFolderId;
   }
   return folderAttributes;
+};
+
+Folder.prototype.handleFolderCreateOrUpdate = function (data) {
+  var folderId = data['id'];
+  var existingFolderLink = this.wrapper.find('#folder_assets').find("[data-id='" + folderId + "']");
+  if (existingFolderLink[0]) {
+    existingFolderLink.text(data['name']);
+  } else {
+    this.addNewFolderToCurrentFolder(data);
+  }
 };
 
 Folder.prototype.addNewFolderToCurrentFolder = function (data) {
