@@ -8,6 +8,7 @@ en:
       success: 'Folder has been deleted successfully'
       failure: '%{error_messages}'
       new_sub_folder: 'New Sub Folder'
+      new_folder: 'New Folder'
     admin:
       tab:
         digital_assets: 'Digital Assets'

@@ -3,7 +3,7 @@
 <% folder_breadcrumb_path(@current_folder) %>
 
 <% content_for :page_actions do %>
-  <%= button Spree.t('folders.new_sub_folder'), nil, 'button', id: 'admin_new_folder', data: { toggle: 'modal', target: '#add-subfolder' } %>
+  <%= button Spree.t(create_folder_button_text(@current_folder)), nil, 'button', id: 'admin_new_folder', data: { toggle: 'modal', target: '#add-subfolder' } %>
 <% end %>
 
 <div id='folder_index' class='row'>

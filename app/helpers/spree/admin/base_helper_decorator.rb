@@ -91,4 +91,8 @@ Spree::Admin::BaseHelper.class_eval do
     products.values
   end
 
+  def create_folder_button_text(current_folder)
+    current_folder.present? ? 'folders.new_sub_folder' : 'folders.new_folder'
+  end
+
 end

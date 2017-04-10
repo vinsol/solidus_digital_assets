@@ -4,7 +4,7 @@ describe Spree::DigitalAsset, :type => :model do
 
   let(:folder) { Spree::Folder.create(name: 'folder') }
   let(:digital_asset) { Spree::DigitalAsset.new(folder: folder, attachment: File.new(Spree::Core::Engine.root + "spec/fixtures" + 'thinking-cat.jpg')) }
-  let(:pdf_digital_asset) { Spree::DigitalAsset.new(folder: folder, attachment: File.new(Spree::Core::Engine.root + 'spree_core.gemspec')) }
+  let(:pdf_digital_asset) { Spree::DigitalAsset.new(folder: folder, attachment: File.new(Spree::Core::Engine.root + 'solidus_core.gemspec')) }
 
   it { is_expected.to have_attached_file(:attachment) }
 

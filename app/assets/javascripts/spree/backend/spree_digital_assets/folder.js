@@ -23,7 +23,7 @@ Folder.prototype.init = function () {
     _this.openFolder($(this));
   });
 
-  this.treeMenuContainer.on('click', 'ul.dropdown-menu a.rename-folder', function() {
+  this.wrapper.on('click', 'a.rename-folder', function() {
     _this.renameFolder($(this));
   });
 
@@ -153,19 +153,23 @@ Folder.prototype.getDeleteRequestParams = function (link) {
 };
 
 Folder.prototype.addNewFolderToCurrentFolder = function (data) {
-  var currentFolderId = $('#folder_assets').data('current');
-  if(data['parent_id'] == currentFolderId) {
-    var folderHtml = this.createCenterContainerFolderArea(data);
-    this.wrapper.find('#folder_assets').prepend(folderHtml);
-  }
+  var folderHTML = this.createCenterContainerFolderArea(data);
+  this.wrapper.find('#folder_assets').append(folderHTML);
 };
 
 Folder.prototype.createCenterContainerFolderArea = function (data) {
   var $folderArea = this.modificationContent.find('.folder-area').clone();
+  var folderUrl = '/admin/digital_assets?folder_id=' + data['id'];
+  var folderDeleteUrl = '/admin/folders/' + data['id'];
   $folderArea.find('a.folder-link')
     .attr('data-id', data['id'])
-    .attr('href', '/admin/digital_assets?folder_id=' + data['id'])
+    .attr('href', folderUrl)
     .text(data['name']);
+
+  $folderArea
+    .find("a[data-method='delete']")
+    .attr('href', folderDeleteUrl);
+
   return $folderArea;
 };
 
