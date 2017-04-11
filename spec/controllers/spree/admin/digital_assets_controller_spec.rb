@@ -218,4 +218,22 @@ describe Spree::Admin::DigitalAssetsController do
     end
   end
 
+  describe '#destroy' do
+    def send_request(params={})
+      spree_put :destroy, params.merge(id: digital_asset.id)
+    end
+
+    before do
+      allow(controller).to receive(:load_resource_instance).and_return(digital_asset)
+    end
+
+    context 'succesfully destroyed' do
+      describe 'Response'do
+        before { send_request }
+        it { is_expected.to respond_with 302 }
+        it { expect(response).to redirect_to(admin_digital_assets_path)  }
+      end
+    end
+  end
+
 end
