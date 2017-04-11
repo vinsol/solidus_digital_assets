@@ -113,6 +113,10 @@ Folder.prototype.createCenterContainerFolderArea = function (data) {
     .text(data['name']);
 
   $folderArea
+    .find('.folder-image > a.file-icon')
+    .attr('href', folderUrl);
+
+  $folderArea
     .find("a[data-method='delete']")
     .attr('href', folderDeleteUrl);
 

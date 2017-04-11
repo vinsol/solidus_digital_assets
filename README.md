@@ -31,7 +31,7 @@ Installation
 Add solidus_digital_assets to your Gemfile:
 
 ```ruby
-gem solidus_digital_assets', github: 'vinsol/solidus_digital_assets'
+gem 'solidus_digital_assets', github: 'vinsol/solidus_digital_assets'
 ```
 
 Bundle your dependencies and run the installation generator:
