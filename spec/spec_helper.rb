@@ -22,7 +22,7 @@ require 'ffaker'
 require 'rspec/active_model/mocks'
 require 'shoulda-matchers'
 require "paperclip/matchers"
-require 'spree_digital_assets/factories'
+require 'solidus_digital_assets/factories'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -36,7 +36,7 @@ require 'spree/testing_support/factories'
 require 'spree/testing_support/url_helpers'
 
 # Requires factories defined in lib/spree_digital_assets/factories.rb
-require 'spree_digital_assets/factories'
+require 'solidus_digital_assets/factories'
 
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
