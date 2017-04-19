@@ -10,13 +10,15 @@
 
 
   <ul class="dropdown-menu">
-    <li>
-      <%= link_to '<i class="fa fa-trash"></i>'.html_safe(), spree.admin_digital_asset_path(digital_asset), method: :delete, class: 'delete_digital_asset_button with-tip', data: { original_title: 'Delete' } %>
-    </li>
-    <li role="separator" class="divider"></li>
-    <li>
-      <%= link_to '<i class="fa fa-pencil"></i>'.html_safe(), spree.edit_admin_digital_asset_path(digital_asset), class: 'with-tip', data: { original_title: 'Edit' } %>
-    </li>
+    <% if can? :manage, digital_asset %>
+      <li>
+        <%= link_to '<i class="fa fa-trash"></i>'.html_safe(), spree.admin_digital_asset_path(digital_asset), method: :delete, class: 'delete_digital_asset_button with-tip', data: { original_title: 'Delete' } %>
+      </li>
+      <li role="separator" class="divider"></li>
+      <li>
+        <%= link_to '<i class="fa fa-pencil"></i>'.html_safe(), spree.edit_admin_digital_asset_path(digital_asset), class: 'with-tip', data: { original_title: 'Edit' } %>
+      </li>
+    <% end %>
     <li role="separator" class="divider"></li>
     <li><%= link_to '<i class="fa fa-download"></i>'.html_safe(), digital_asset.attachment.url(:original, false), target: '_blank', class: 'with-tip', data: { original_title: 'Download' } %></li>
   </ul>

@@ -3,7 +3,7 @@
     <div  id='asset_upload_buton' class='col-md-12'>
       <%= form_for [:admin, @digital_asset], html: { multipart: true, class: 'form-horizontal', id: 'new_multiple_digital_asset_form' }, remote: true, format: :js, authenticity_token: true do |f| %>
         <%= f.hidden_field :folder_id, class: 'digital_asset_folder_id' %>
-        <% disabled = 'disabled' unless @current_folder.present? %>
+        <% disabled = 'disabled' unless @current_folder.present? && can?(:manage, @digital_asset) %>
         <%= f.label :attachment, class: "btn btn-primary pull-right #{disabled}", id: 'upload_asset_button' do %>
           <%= f.file_field :attachment, multiple: true, name: 'digital_asset[attachment]', class: 'hidden file_upload_attachment_field', disabled: disabled %>
           <i class='fa fa-cloud-upload'></i> Upload Asset

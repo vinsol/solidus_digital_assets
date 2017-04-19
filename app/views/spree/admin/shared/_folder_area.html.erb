@@ -1,10 +1,12 @@
 <div class="text-center folder-link-container folder-area add-central-folder">
   <div class="pull-right">
-    <%= link_to '', [:admin, folder], { title: 'Delete',
-        class: 'text-danger fa fa-trash',
-        method: :delete,
-        data: { confirm: Spree.t(:confirm_delete) } } %>
-    <a href="#" class="fa fa-pencil rename-folder" title='Update' data-toggle="modal" data-target="#add-subfolder"></a>
+    <% if can?(:manage, folder) %>
+      <%= link_to '', [:admin, folder], { title: 'Delete',
+          class: 'text-danger fa fa-trash',
+          method: :delete,
+          data: { confirm: Spree.t(:confirm_delete) } } %>
+      <a href="#" class="fa fa-pencil rename-folder" title='Update' data-toggle="modal" data-target="#add-subfolder"></a>
+    <% end %>
   </div>
   <br>
   <div class="folder-image">
