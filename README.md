@@ -59,6 +59,12 @@ Simply add this require statement to your spec_helper:
 require 'solidus_digital_assets/factories'
 ```
 
+Permissions
+------------
+
+Roles authorized to only view the assets require the `DigitalAssetDisplay` PermissionSet.  For roles with Edit access to the assets you need the `DigitalAssetManagement` PermissionSet.
+
+
 Screenshots
 -----------
 ![Root Folder](/Screenshots/1.png?raw=True "Root Folder")
