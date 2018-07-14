@@ -12,6 +12,7 @@ module Spree
 
       def create
         @object.assign_attributes(permitted_resource_params)
+        @object.position = 1
         if @object.save
           render layout: false
         else
