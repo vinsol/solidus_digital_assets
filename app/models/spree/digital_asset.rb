@@ -1,14 +1,23 @@
+# frozen_string_literal: true
+
 SUPPORTED_IMAGE_FORMATS = ["image/jpg", "image/jpeg", "image/png", "image/gif", "image/bmp"]
 SUPPORTED_IMAGES_REGEX = Regexp.new('\A(' + SUPPORTED_IMAGE_FORMATS.join('|') + ')\Z')
 
 module Spree
   class DigitalAsset < Spree::Base
+
+    self.table_name = "spree_digital_assets"
+
     belongs_to :folder
     has_many :assets
 
-    has_attached_file :attachment, styles: { small: '100x100>' },
+    has_attached_file :attachment,
+                      styles: { mini: '48x48>', small: '100x100>', product: '240x240>', large: '600x600>' },
+                      default_style: :product,
+                      default_url: 'noimage/:style.png',
                       url: '/spree/digital_assets/:id/:style/:basename.:extension',
-                      path: ':rails_root/public/spree/digital_assets/:id/:style/:basename.:extension'
+                      path: ':rails_root/public/spree/digital_assets/:id/:style/:basename.:extension',
+                      convert_options: { all: '-strip -auto-orient -colorspace sRGB' }
 
     do_not_validate_attachment_file_type :attachment
 

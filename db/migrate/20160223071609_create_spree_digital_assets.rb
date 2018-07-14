@@ -4,6 +4,7 @@ class CreateSpreeDigitalAssets < ActiveRecord::Migration[4.2]
       t.string :name
       t.attachment :attachment
       t.references :folder
+      t.integer :position, null: false, default: 1, index: true
 
       t.timestamps null: false
     end

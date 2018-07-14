@@ -4,8 +4,12 @@ FactoryBot.define do
   # Example adding this to your spec_helper will load these Factories for use:
   # require 'spree_digital_assets/factories'
 
-  factory :folder do
+  factory :folder, class: Spree::Folder do
     name { 'Documents' }
+  end
+
+  factory :digital_asset, class: Spree::DigitalAsset do
+    name 'abc'
   end
 
 end

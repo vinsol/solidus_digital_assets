@@ -7,7 +7,9 @@ describe Spree::Admin::DigitalAssetsController do
   let(:folders) { [folder] }
   let(:children) { [folder] }
   let(:user) { mock_model(Spree::User) }
-  let(:digital_asset) { mock_model(Spree::DigitalAsset) }
+  let(:digital_asset) {
+    mock_model(Spree::DigitalAsset, :position= => true, :position => 1, :folder => :folder)
+  }
   let(:folder_id) { '1' }
   let(:digital_asset_folder_path) { '' }
 
@@ -198,7 +200,7 @@ describe Spree::Admin::DigitalAssetsController do
 
   describe '#update' do
     def send_request(params={})
-      spree_put :update, params.merge(id: digital_asset.id)
+      put :update, params: params.merge(id: digital_asset.id)
     end
 
     before do
@@ -220,7 +222,7 @@ describe Spree::Admin::DigitalAssetsController do
 
   describe '#destroy' do
     def send_request(params={})
-      spree_put :destroy, params.merge(id: digital_asset.id)
+      put :destroy, params: params.merge(id: digital_asset.id)
     end
 
     before do

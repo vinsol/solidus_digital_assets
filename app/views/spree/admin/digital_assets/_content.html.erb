@@ -1,15 +1,25 @@
 <div  class='col-md-12'>
   <div class='row'>
-    <div  id='asset_upload_buton' class='col-md-12'>
-      <%= form_for [:admin, @digital_asset], html: { multipart: true, class: 'form-horizontal', id: 'new_multiple_digital_asset_form' }, remote: true, format: :js, authenticity_token: true do |f| %>
-        <%= f.hidden_field :folder_id, class: 'digital_asset_folder_id' %>
-        <% disabled = 'disabled' unless @current_folder.present? && can?(:manage, @digital_asset) %>
-        <%= f.label :attachment, class: "btn btn-primary pull-right #{disabled}", id: 'upload_asset_button' do %>
-          <%= f.file_field :attachment, multiple: true, name: 'digital_asset[attachment]', class: 'hidden file_upload_attachment_field', disabled: disabled %>
-          <i class='fa fa-cloud-upload'></i> Upload Asset
+    <fieldset class="col-12 no-border-bottom">
+      <div id="upload-zone">
+        <%= form_for [:admin, @digital_asset], html: { class: 'form-horizontal', id: 'new_multiple_digital_asset_form' }, multipart: true, remote: true, format: :js, authenticity_token: true do |f| %>
+          <label class="upload">
+            <i class="icon icon-cloud icon-xxl"></i>
+            <p>
+              <span class="button"><%= t('.choose_files') %></span>
+            </p>
+            <p>
+              <%= t('.drag_and_drop') %>
+            </p>
+
+            <%= f.file_field :attachment, multiple: false, class: 'hidden' %>
+            <input type="hidden" value='<%= @digital_asset.id %>' name="image[viewable_id]" id="image_viewable_id">
+          </label>
         <% end %>
-      <% end %>
-    </div>
+      </div>
+
+      <div id="progress-zone" class="row"></div>
+    </fieldset>
   </div>
 
   <div class="row">
