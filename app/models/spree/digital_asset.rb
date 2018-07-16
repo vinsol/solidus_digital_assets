@@ -9,7 +9,7 @@ module Spree
     belongs_to :folder
     has_many :assets
 
-    has_attached_file :attachment, 
+    has_attached_file :attachment,
                       styles: { mini: '48x48>', small: '100x100>', product: '240x240>', large: '600x600>' },
                       default_style: :product,
                       default_url: 'noimage/:style.png',
@@ -23,9 +23,7 @@ module Spree
 
     before_post_process :image?
     before_validation :assign_default_name, on: :create
-    
-    attr_accessor :position
-    
+
     private
       def image?
         (attachment_content_type =~ SUPPORTED_IMAGES_REGEX).present?
