@@ -20,6 +20,10 @@ module Spree
         end
       end
 
+      def destroy
+        redirect_to action: :index
+      end
+
       private
 
         def filter_digital_assets_by_folder

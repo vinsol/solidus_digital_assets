@@ -7,9 +7,6 @@ describe Spree::Asset, :type => :model do
     Spree::Core::Engine.root + 'spec/fixtures/thinking-cat.jpg'
   }
   let(:digital_asset) {
-    # Spree::DigitalAsset.create!(name: 'abc',
-    #                             folder: folder,
-    #                             attachment: File.new(digital_asset_path))
     create(:digital_asset, folder: folder, attachment: File.new(digital_asset_path))
   }
   let(:image) { Spree::Image.new }
@@ -40,7 +37,8 @@ describe Spree::Asset, :type => :model do
     context 'when valid digital_asset_id' do
       before do
         image.digital_asset_id = digital_asset.id
-        image.save
+        binding.pry
+        #image.save
       end
 
       it { expect(image.attachment_file_name).to eq(digital_asset.attachment_file_name) }

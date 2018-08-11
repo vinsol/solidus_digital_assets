@@ -222,7 +222,7 @@ describe Spree::Admin::DigitalAssetsController do
 
   describe '#destroy' do
     def send_request(params={})
-      put :destroy, params.merge(id: digital_asset.id)
+      put :destroy, params: params.merge(id: digital_asset.id)
     end
 
     before do
