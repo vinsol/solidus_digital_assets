@@ -37,8 +37,7 @@ describe Spree::Asset, :type => :model do
     context 'when valid digital_asset_id' do
       before do
         image.digital_asset_id = digital_asset.id
-        binding.pry
-        #image.save
+        image.save
       end
 
       it { expect(image.attachment_file_name).to eq(digital_asset.attachment_file_name) }
