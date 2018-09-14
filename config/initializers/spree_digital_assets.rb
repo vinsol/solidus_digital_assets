@@ -6,7 +6,5 @@ Spree::Backend::Config.configure do |config|
   )
 end
 
-Spree::RoleConfiguration.configure do |config|
-  config.assign_permissions :admin, [Spree::PermissionSets::DigitalAssetDisplay,
-                                     Spree::PermissionSets::DigitalAssetManagement]
-end
+Spree::Config.roles.assign_permissions :admin, [Spree::PermissionSets::DigitalAssetDisplay,
+                                                Spree::PermissionSets::DigitalAssetManagement]
