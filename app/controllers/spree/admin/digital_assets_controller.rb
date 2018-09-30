@@ -12,11 +12,16 @@ module Spree
 
       def create
         @object.assign_attributes(permitted_resource_params)
+        @object.position = 1
         if @object.save
           render layout: false
         else
           render json: { errors: @object.errors.full_messages.to_sentence }, status: 422
         end
+      end
+
+      def destroy
+        redirect_to action: :index
       end
 
       private

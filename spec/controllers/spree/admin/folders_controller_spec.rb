@@ -14,7 +14,7 @@ describe Spree::Admin::FoldersController do
 
   describe '#create' do
     def send_request(params={})
-      spree_post :create, params
+      post :create, params: params
     end
 
     before do
@@ -63,7 +63,7 @@ describe Spree::Admin::FoldersController do
 
   describe '#update' do
     def send_request(params={})
-      spree_put :update, params.merge(id: folder.id)
+      put :update, params: params.merge(id: folder.id)
     end
 
     before do
@@ -110,7 +110,7 @@ describe Spree::Admin::FoldersController do
 
   describe '#destroy' do
     def send_request(params={})
-      spree_put :destroy, params.merge(id: folder.id)
+      put :destroy, params: params.merge(id: folder.id)
     end
 
     before do
