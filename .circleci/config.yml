@@ -40,6 +40,12 @@ jobs:
       - run: bundle exec rake db:create
       - run: bundle exec rake db:schema:load
 
+      # Dummy app setup
+      - run:
+          name: setup dummy app
+          command: |
+            bundle exec rake test_app
+
       # run tests!
       - run:
           name: run tests
